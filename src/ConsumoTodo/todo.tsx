@@ -14,8 +14,20 @@ const ToDo = () => {
 
     const FetchTasks = async() => {
         try {
-            const response = await axios.get<Task[]>("https://jsonplaceholder.typicode.com/posts")
+            const response = await axios.get<Task[]>("https://jsonplaceholder.typicode.com/todos")
             setTasks(response.data)
+        }catch(error) {
+            console.log("Erro", error)
+        }
+    }
+
+    const AddTasks = async() => {
+        try {
+            const response = await axios.post<Task>("https://jsonplaceholder.typicode.com/todos", {
+                title: newTaskTitle,
+                completed: false,
+            })
+            setTasks([...tasks, response.data])
         }catch(error) {
             console.log("Erro", error)
         }
