@@ -34,6 +34,20 @@ const ToDo = () => {
         }
     }
 
+    const updateTasks = async(id: number) => {
+        try {
+            const updateTask = tasks.map(task =>
+                task.id === id ? {...task, completed :!task.completed} : task
+            );
+            setTasks(updateTask)
+            await axios.put(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+                completed: updateTask.find(task => task.id === id)?.completed,
+            });
+        }catch(error) {
+            console.log("Erro", error)
+        }
+    }
+
     return (
         <div>
             <h1>Lista de Tarefas</h1>
