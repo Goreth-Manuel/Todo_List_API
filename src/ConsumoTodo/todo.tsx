@@ -10,7 +10,29 @@ interface Task {
 
 const ToDo = () => {
     const [tasks, setTasks] = useState<Task[]>([]);
-    const [newTaskTitle, setNewTaskTitle] = useState<string>("")
+    const [newTaskTitle, setNewTaskTitle] = useState<string>("");
+
+    const FetchTasks = async() => {
+        try {
+            const response = await axios.get<Task[]>("https://jsonplaceholder.typicode.com/todos")
+            setTasks(response.data)
+        }catch(error) {
+            console.log("Erro", error)
+        }
+    }
+
+    const AddTasks = async() => {
+        try {
+            const response = await axios.post<Task>("https://jsonplaceholder.typicode.com/todos", {
+                title: newTaskTitle,
+                completed: false,
+            })
+            setTasks([...tasks, response.data]);
+            setNewTaskTitle(" ");
+        }catch(error) {
+            console.log("Erro", error)
+        }
+    }
 
     return (
         <div>
@@ -20,7 +42,7 @@ const ToDo = () => {
                 value={newTaskTitle}
                 onChange={e => setNewTaskTitle(e.target.value)}
             />
-            <button>Adicionar Tarefa</button>
+            <button onClick={}>Adicionar Tarefa</button>
             <ul>
                 {tasks.map(task =>(
                      <li key={task.id}>
