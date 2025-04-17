@@ -15,7 +15,11 @@ const ToDo = () => {
     return (
         <div>
             <h1>Lista de Tarefas</h1>
-            <input type="text" />
+            <input 
+                type="text" 
+                value={newTaskTitle}
+                onChange={e => setNewTaskTitle(e.target.value)}
+            />
             <button>Adicionar Tarefa</button>
             <ul>
                 {tasks.map(task =>(
