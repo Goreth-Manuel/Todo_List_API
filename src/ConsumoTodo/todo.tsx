@@ -27,7 +27,8 @@ const ToDo = () => {
                 title: newTaskTitle,
                 completed: false,
             })
-            setTasks([...tasks, response.data])
+            setTasks([...tasks, response.data]);
+            setNewTaskTitle(" ");
         }catch(error) {
             console.log("Erro", error)
         }
