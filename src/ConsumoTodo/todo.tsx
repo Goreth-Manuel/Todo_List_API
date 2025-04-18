@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 interface Task {
@@ -47,6 +47,9 @@ const ToDo = () => {
             console.log("Erro", error)
         }
     }
+    useEffect(() => {
+        FetchTasks()
+    }, [])
 
     return (
         <div>
@@ -56,13 +59,14 @@ const ToDo = () => {
                 value={newTaskTitle}
                 onChange={e => setNewTaskTitle(e.target.value)}
             />
-            <button onClick={}>Adicionar Tarefa</button>
+            <button onClick={AddTasks}>Adicionar Tarefa</button>
             <ul>
                 {tasks.map(task =>(
-                     <li key={task.id}>
+                     <li key={task.id}
+                     style={{textDecorationLine: task.completed ? 'line-through' : 'none'}}
+                     onClick={() => updateTasks(task.id)}
+                     >
                      <h2>{task.title}</h2>
-                     <p>{task.completed}</p>
-                     <p>Usuários: {task.userId}</p>
                  </li>
                 ))}
             </ul>
