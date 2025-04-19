@@ -1,13 +1,11 @@
-//import Posts from "./ConsumoPosts/posts"
-import ToDo from "./ConsumoTodo/todo"
+import ToDoView from "./view/ToDoView"
 
 function App() {
 
 
   return (
     <>
-    
-      <ToDo />
+      <ToDoView />
     </>
   )
 }

@@ -1,14 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Task } from "../model/types";
 
-interface Task {
-    userId: number;
-    id: number;
-    title: string;
-    completed: boolean;
-}
-
-const ToDo = () => {
+const useToDoViewModel = () => {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [newTaskTitle, setNewTaskTitle] = useState<string>("");
 
@@ -47,30 +41,19 @@ const ToDo = () => {
             console.log("Erro", error)
         }
     }
+    
     useEffect(() => {
         FetchTasks()
     }, [])
 
-    return (
-        <div>
-            <h1>Lista de Tarefas</h1>
-            <input 
-                type="text" 
-                value={newTaskTitle}
-                onChange={e => setNewTaskTitle(e.target.value)}
-            />
-            <button onClick={AddTasks}>Adicionar Tarefa</button>
-            <ul>
-                {tasks.map(task =>(
-                     <li key={task.id}
-                     style={{textDecorationLine: task.completed ? 'line-through' : 'none'}}
-                     onClick={() => updateTasks(task.id)}
-                     >
-                     <h2>{task.title}</h2>
-                 </li>
-                ))}
-            </ul>
-        </div>
-    )
+    return {
+        tasks,
+        newTaskTitle,
+        setNewTaskTitle,
+        AddTasks,
+        updateTasks,
+
+    }
+  
 }
-export default ToDo;
+export default useToDoViewModel;
